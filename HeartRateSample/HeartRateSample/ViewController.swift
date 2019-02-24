@@ -105,7 +105,6 @@ class ViewController: UIViewController, MFMailComposeViewControllerDelegate  {
         
         let mail = MFMailComposeViewController()
         
-        // note that your view controller must conform to MFMailComposeViewControllerDelegate
         mail.mailComposeDelegate = self
         mail.setToRecipients([""])
         
