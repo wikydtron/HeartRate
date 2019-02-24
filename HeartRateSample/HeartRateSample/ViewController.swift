@@ -101,7 +101,7 @@ class ViewController: UIViewController, MFMailComposeViewControllerDelegate  {
         }
         
         let formatter = DateFormatter()
-        formatter.dateFormat = "dd.MM.yyyy"
+        formatter.dateFormat = "dd.MM.yyyy HH:mm:ss"
         
         let mail = MFMailComposeViewController()
         
