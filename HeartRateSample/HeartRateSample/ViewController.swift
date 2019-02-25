@@ -56,7 +56,6 @@ class ViewController: UIViewController, MFMailComposeViewControllerDelegate  {
     
     func showNilError() {
         let alert = UIAlertController(title: "No Heart Rate Data Found", message: "There was no heart rate data found. If you expected to see data, it may be that you did not authorised to read you heart rate data. Please go to the settings app (Privacy -> HealthKit) to change this.", preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "Go to settings", style: .default, handler:  { action in
             if let url = URL(string:UIApplication.openSettingsURLString) {
                 if UIApplication.shared.canOpenURL(url) {
