@@ -19,13 +19,12 @@ class ViewController: UIViewController, MFMailComposeViewControllerDelegate  {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "exercise.jpg")!)
-        getHealthKitPermission()
     }
     
     
     @IBOutlet weak var tblHeartRateData: UITableView!
     @IBAction func getHeartRate(_ sender: Any) {
-    
+        getHealthKitPermission()
         getTodaysHeartRate { (result) in
             DispatchQueue.main.async {
                 
