@@ -18,8 +18,28 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GU2-2c-PgX">
+                                <rect key="frame" x="116" y="572" width="143" height="30"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="aXA-h5-RaL"/>
+                                </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Get HeartRate Data"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="getHeartRate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nDx-gb-UeD"/>
+                                </connections>
+                            </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="i6A-Pz-jH2">
-                                <rect key="frame" x="16" y="42" width="343" height="509"/>
+                                <rect key="frame" x="16" y="58" width="343" height="509"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" rowHeight="67" id="pld-bV-FEd" customClass="HeartDataTableViewCell" customModule="HeartRateSample" customModuleProvider="target">
@@ -84,37 +104,17 @@
                                     <action selector="emailResult:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hVM-IA-n21"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GU2-2c-PgX">
-                                <rect key="frame" x="116" y="572" width="143" height="30"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="aXA-h5-RaL"/>
-                                </constraints>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="Get HeartRate Data"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                        <real key="value" value="1"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="10"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="getHeartRate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nDx-gb-UeD"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="i6A-Pz-jH2" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" constant="-16" id="2Db-6f-LtU"/>
                             <constraint firstAttribute="bottom" secondItem="wQp-G8-wst" secondAttribute="bottom" constant="20" symbolic="YES" id="Jim-nO-W64"/>
-                            <constraint firstItem="i6A-Pz-jH2" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="22" id="TlA-Dt-Y90"/>
+                            <constraint firstItem="i6A-Pz-jH2" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="38" id="TlA-Dt-Y90"/>
                             <constraint firstItem="i6A-Pz-jH2" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="bKj-I7-Hgq"/>
                             <constraint firstItem="GU2-2c-PgX" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="116" id="g5x-WD-8mF"/>
                             <constraint firstItem="wQp-G8-wst" firstAttribute="centerX" secondItem="GU2-2c-PgX" secondAttribute="centerX" id="h5x-ai-11h"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="GU2-2c-PgX" secondAttribute="bottom" constant="65" id="lAm-Zg-jtG"/>
-                            <constraint firstItem="GU2-2c-PgX" firstAttribute="top" secondItem="i6A-Pz-jH2" secondAttribute="bottom" constant="21" id="p3d-Lv-tvW"/>
+                            <constraint firstItem="GU2-2c-PgX" firstAttribute="top" secondItem="i6A-Pz-jH2" secondAttribute="bottom" constant="5" id="p3d-Lv-tvW"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="GU2-2c-PgX" secondAttribute="trailing" constant="116" id="st7-Bl-Y5p"/>
                             <constraint firstItem="wQp-G8-wst" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="116" id="w73-To-rpC"/>
                         </constraints>

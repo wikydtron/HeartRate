@@ -12,16 +12,16 @@ import MessageUI
 
 class ViewController: UIViewController, MFMailComposeViewControllerDelegate  {
     
+    let healthStore = HKHealthStore()
+    
+    var heartRateData: [HKSample]?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "exercise.jpg")!)
         getHealthKitPermission()
     }
     
-    
-    let healthStore = HKHealthStore()
-    
-    var heartRateData: [HKSample]?
     
     @IBOutlet weak var tblHeartRateData: UITableView!
     @IBAction func getHeartRate(_ sender: Any) {
@@ -40,8 +40,9 @@ class ViewController: UIViewController, MFMailComposeViewControllerDelegate  {
     
     //Permission
     func getHealthKitPermission() {
-        let healthkitTypesToRead = NSSet(array: [
-            HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRate) ?? ""
+        if HKHealthStore.isHealthDataAvailable() {
+            let healthkitTypesToRead = NSSet(array: [
+            HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRate)!
             ])
         
         healthStore.requestAuthorization(toShare: nil, read: healthkitTypesToRead as? Set) { (success, error) in
@@ -55,6 +56,7 @@ class ViewController: UIViewController, MFMailComposeViewControllerDelegate  {
                 print("Permission denied.")
             }
         }
+        }
     }
     
     //Get HealthKit Data
@@ -64,7 +66,7 @@ class ViewController: UIViewController, MFMailComposeViewControllerDelegate  {
         let heartRateType:HKQuantityType = HKQuantityType.quantityType(forIdentifier: .heartRate)!
         
         //predicate
-        let startDate = Date() - 2 * 24 * 60 * 60
+        let startDate = Date() - 1 * 24 * 60 * 60
         let endDate = Date()
         let predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: [])
         
@@ -112,7 +114,7 @@ class ViewController: UIViewController, MFMailComposeViewControllerDelegate  {
         let quantityStrings = currentHeartRate
             .compactMap { $0 as? HKQuantitySample }
             .map {
-                "<p>Your Heart Rate is: \($0.quantity.doubleValue(for: heartRateUnit)) on \(formatter.string(from: $0.startDate)) </p>"
+                "<p>Your Heart Rate was: \($0.quantity.doubleValue(for: heartRateUnit)) </p> <p> Date: \(formatter.string(from: $0.startDate))</p>"
         }
         
         mail.setMessageBody(quantityStrings.joined(separator: "<br>"), isHTML: true)
