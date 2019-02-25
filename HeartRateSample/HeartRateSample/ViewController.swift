@@ -19,13 +19,14 @@ class ViewController: UIViewController, MFMailComposeViewControllerDelegate  {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "exercise.jpg")!)
+        
     }
     
     
     @IBOutlet weak var tblHeartRateData: UITableView!
     @IBAction func getHeartRate(_ sender: Any) {
-        getHealthKitPermission()
-        getTodaysHeartRate { (result) in
+    getHealthKitPermission()
+        getTodaysHeartRate{ (result) in
             DispatchQueue.main.async {
                 
                 self.heartRateData = result
@@ -47,6 +48,7 @@ class ViewController: UIViewController, MFMailComposeViewControllerDelegate  {
         healthStore.requestAuthorization(toShare: nil, read: healthkitTypesToRead as? Set) { (success, error) in
             if success {
                 print("Permission accept.")
+                
                 
             } else {
                 if error != nil {
