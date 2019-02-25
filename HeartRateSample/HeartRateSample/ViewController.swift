@@ -19,13 +19,13 @@ class ViewController: UIViewController, MFMailComposeViewControllerDelegate  {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "exercise.jpg")!)
-        
+        getHealthKitPermission()
     }
     
     
     @IBOutlet weak var tblHeartRateData: UITableView!
     @IBAction func getHeartRate(_ sender: Any) {
-    getHealthKitPermission()
+    
         getTodaysHeartRate{ (result) in
             DispatchQueue.main.async {
                 
@@ -44,22 +44,28 @@ class ViewController: UIViewController, MFMailComposeViewControllerDelegate  {
             let healthkitTypesToRead = NSSet(array: [
             HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRate)!
             ])
+            let healthkitTypesToWritable = NSSet(array: [
+                HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRate)!
+                ])
         
-        healthStore.requestAuthorization(toShare: nil, read: healthkitTypesToRead as? Set) { (success, error) in
-            if success {
-                print("Permission accept.")
-                
-                
-            } else {
-                if error != nil {
-                    print(error ?? "")
-                }
-                print("Permission denied.")
-            }
+            healthStore.requestAuthorization(toShare: healthkitTypesToWritable as? Set<HKSampleType>, read: healthkitTypesToRead as? Set) { (success, error) in
+                print(success)
         }
         }
     }
     
+    func showNilError() {
+        let alert = UIAlertController(title: "No Heart Rate Data Found", message: "There was no heart rate data found. If you expected to see data, it may be that you did not authorised to read you heart rate data. Please go to the settings app (Privacy -> HealthKit) to change this.", preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Go to settings", style: .default, handler:  { action in
+            if let url = URL(string:UIApplication.openSettingsURLString) {
+                if UIApplication.shared.canOpenURL(url) {
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                }
+            }            }))
+        self.present(alert, animated: true, completion: nil)
+    }
+    var shownWarning : Bool = false
     //Get HealthKit Data
     func getTodaysHeartRate(completion: (@escaping ([HKSample]) -> Void)) {
         print("func")
@@ -83,9 +89,14 @@ class ViewController: UIViewController, MFMailComposeViewControllerDelegate  {
         { (query:HKSampleQuery, results:[HKSample]?, error:Error?) -> Void in
             
             guard error == nil else { print("error"); return }
-            
-            completion(results!)
-            
+            guard let results = results else { return }
+            if results.count == 0 && !self.shownWarning {
+                self.shownWarning = true
+                DispatchQueue.main.async {
+                    self.showNilError()
+                }
+            }
+            completion(results)
         }
         healthStore.execute(heartRateQuery)
         
